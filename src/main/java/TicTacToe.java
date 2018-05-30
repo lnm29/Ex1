@@ -1,12 +1,15 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-//import javax.ImageIO.*;
+import javax.imageio.*;
 import java.io.*;
 
 public class TicTacToe{
 	boolean xturn = true;
-	
+	// Images
+
+    Image _platoImage;
+    Image _aristotleImage;
 	JButton[] _buttons = new JButton[9];
 	
 	//constructor
@@ -50,7 +53,12 @@ public class TicTacToe{
 			
 		}
 		
-		
+		try {
+			_platoImage = ImageIO.read(getClass().getResource("/plato.png"));
+			_aristotleImage = ImageIO.read(getClass().getResource("/aristotle.png"));
+		} catch (IOException ioex) {
+			System.exit(1);
+		}	
 		
 		//Keep at the end of the constructor 
 		_frame.setVisible(true);
@@ -70,10 +78,12 @@ public class TicTacToe{
 			String currentText = source.getText();
 			if (currentText.equals("_")) {
 				if (xturn) {
-					source.setText("X");
+					source.setIcon(new ImageIcon(_platoImage));
+					source.setText("");
 					xturn = false;
 				} else {
-					source.setText("O");
+					source.setIcon(new ImageIcon(_aristotleImage));
+					source.setText("");
 					xturn = true;
 				}
 			} else if (currentText.equals("Reset")){
